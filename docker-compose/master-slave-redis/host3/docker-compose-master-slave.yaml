@@ -1,0 +1,14 @@
+version: '2'
+services:
+  slave-2:
+    image: redis:sentinel-v2
+    network_mode: host
+    ports:
+        - "6379:6379"
+#    command: redis-server  /etc/redis/redis-master.conf
+    command: redis-server /etc/redis/redis-slave-password.conf --slaveof 172.16.101.74 6379
+    volumes:
+     - ./redis-slave-password.conf:/etc/redis/redis-slave-password.conf
+     - ./sentinel.conf:/etc/redis/sentinel.conf
+    restart: unless-stopped
+

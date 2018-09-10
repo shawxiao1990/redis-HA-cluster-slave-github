@@ -1,0 +1,13 @@
+version: '2'
+services:
+  master:
+    image: redis:sentinel-v2
+    network_mode: host
+    ports:
+        - "6379:6379"
+    volumes:
+      - ./sentinel.conf:/etc/redis/sentinel.conf
+      - ./redis-password.conf:/etc/redis/redis-password.conf
+    command: redis-server /etc/redis/redis-password.conf
+    restart: unless-stopped
+
